@@ -316,8 +316,11 @@ public class AudioHandler extends CordovaPlugin {
      * @param file				The name of the audio file.
      */
     public void startPlayingAudio(String id, String file) {
+        AudioManager am = (AudioManager) this.cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
+        int streamVolume = am.getStreamVolume(AudioManager.STREAM_RING);
         AudioPlayer audio = getOrCreatePlayer(id, file);
         audio.startPlaying(file);
+        audio.setVolume(streamVolume);
         /* getAudioFocus(); */
     }
 
